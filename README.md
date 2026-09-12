@@ -48,9 +48,8 @@ After identifying the food item, the application retrieves its nutritional infor
         ┌─────────────────────────────────┐
         │       Deep Learning Models      │
         │                                 │
-        │  CNN  │  VGG16  │  ResNet50    │
-        │       │          │              │
-        │       │ MobileNet│  Other Models│
+        │  CNN  │  VGG16  │  ResNet50     │
+        │                                 │      
         └─────────────────┬───────────────┘
                           │
                           ▼
@@ -131,11 +130,7 @@ VGG16 is a pretrained convolutional neural network commonly used for image class
 
 ResNet50 uses residual connections to make training deeper networks easier.
 
-### 4. MobileNet
 
-MobileNet is a lightweight CNN architecture designed for efficient image classification with fewer computational resources.
-
----
 
 ## 📁 Project Structure
 
