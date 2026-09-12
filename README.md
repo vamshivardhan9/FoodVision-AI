@@ -1,195 +1,307 @@
 # Deep-Learning-Food-Classification-using-MultiModels
-# 🍱 Food Classification System
+# 🍽️ FoodVision AI — Food Classification System
 
-A deep learning-based **Food Classification System** that identifies food items from images and provides nutritional information. The project uses multiple CNN-based models for food image classification and Redis for storing and retrieving nutrition data and model metrics.
+**FoodVision AI** is a Deep Learning and Computer Vision web application that identifies food items from uploaded images.
 
----
+The application supports **three classification models — CNN, VGG16, and ResNet50** — and returns the predicted food class, confidence, model-specific metrics, food image, and nutritional information.
 
-## 📌 Project Overview
-
-The Food Classification System takes a food image as input and predicts the food category using trained deep learning models.
-
-After identifying the food item, the application retrieves its nutritional information from a JSON dataset stored in Redis.
-
-### Main Features
-
-* 📷 Upload a food image
-* 🤖 Food classification using deep learning
-* 🧠 Multiple trained models
-* 📊 Model performance/metrics
-* 🥗 Nutrition information
-* ⚡ Redis-based data storage
-* 🌐 Flask web application
-* 💾 Keras model (`.keras`) support
-* 🎨 Web-based result page
+The backend is built with **Python and Flask**, while **Redis** is used to provide food-class and nutrition data.
 
 ---
 
-## 🏗️ Project Architecture
+## 🚀 Features
+
+* Upload a food image through a web interface
+* Select a classification model
+* Food classification using:
+
+  * CNN
+  * VGG16
+  * ResNet50
+* Supports **34 food classes**
+* Displays prediction confidence
+* Displays predicted food class
+* Allows selection of the actual food class
+* Displays model metrics for the predicted class
+* Retrieves nutrition information
+* Displays an image of the predicted food
+* Redis connectivity/health checking
+* REST API endpoints for prediction, nutrition, and food classes
+* Maximum upload size of 10 MB
+* Supports JPG, JPEG, PNG, and WebP images
+
+The Flask application exposes `/predict`, `/health`, `/food-classes`, and nutrition-related endpoints.
+
+---
+
+# 🧠 Models
+
+FoodVision AI currently supports three models:
+
+| Model    | Input Size | Output Classes |
+| -------- | ---------: | -------------: |
+| CNN      |  240 × 240 |             34 |
+| VGG16    |  256 × 256 |             34 |
+| ResNet50 |  256 × 256 |             34 |
+
+The input dimensions and model names are defined directly in the application.
+
+---
+
+## 🔹 CNN Architecture
+
+The custom CNN contains convolution, max-pooling, flattening, and dense layers.
 
 ```text
-                 ┌─────────────────┐
-                 │   User Uploads  │
-                 │   Food Image    │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │   Flask Web App │
-                 └────────┬────────┘
-                          │
-                          ▼
-              ┌───────────────────────┐
-              │ Image Preprocessing   │
-              │ Resize / Normalize    │
-              └───────────┬───────────┘
-                          │
-                          ▼
-        ┌─────────────────────────────────┐
-        │       Deep Learning Models      │
-        │                                 │
-        │  CNN  │  VGG16  │  ResNet50     │
-        │                                 │      
-        └─────────────────┬───────────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Predicted Food  │
-                 │     Class       │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │      Redis      │
-                 │ Nutrition Data  │
-                 └────────┬────────┘
-                          │
-                          ▼
-                 ┌─────────────────┐
-                 │ Results Page    │
-                 │ Food + Nutrition│
-                 └─────────────────┘
+Input
+240 × 240 × 3
+      ↓
+Conv2D – 12 filters
+      ↓
+MaxPooling
+      ↓
+Conv2D – 6 filters
+      ↓
+MaxPooling
+      ↓
+Conv2D – 3 filters
+      ↓
+MaxPooling
+      ↓
+Flatten
+      ↓
+Dense – 8
+      ↓
+Dense – 4
+      ↓
+Dense – 3
+      ↓
+Dense – 34
+      ↓
+Softmax
 ```
 
----
-
-## 🛠️ Technologies Used
-
-| Technology | Purpose                    |
-| ---------- | -------------------------- |
-| Python     | Main programming language  |
-| TensorFlow | Deep learning framework    |
-| Keras      | Model building and loading |
-| OpenCV     | Image processing           |
-| NumPy      | Numerical operations       |
-| Flask      | Web application            |
-| Redis      | Data storage/cache         |
-| JSON       | Nutrition data             |
-| HTML/CSS   | Frontend                   |
-| Git/GitHub | Version control            |
+The CNN is reconstructed from the supplied `cnn.weights.h5` weights and has a 34-neuron softmax output layer.
 
 ---
 
-## 🧠 Deep Learning Models
+## 🔹 VGG16
 
-The project can use multiple models for food classification.
+The VGG16 model uses a VGG-style convolutional architecture with five convolution blocks.
 
-### 1. CNN
+```text
+Input
+256 × 256 × 3
+      ↓
+Convolution Blocks
+      ↓
+Max Pooling
+      ↓
+Feature Extraction
+      ↓
+Classification Layers
+      ↓
+34 Food Classes
+```
 
-A custom Convolutional Neural Network is used for image classification.
+The application reconstructs the VGG-style network from the supplied weights.
 
-Typical architecture:
+---
+
+## 🔹 ResNet50
+
+ResNet50 is the third classification model supported by the application.
 
 ```text
 Input Image
-     ↓
-Convolution
-     ↓
-ReLU
-     ↓
-Pooling
-     ↓
-Convolution
-     ↓
-ReLU
-     ↓
-Pooling
-     ↓
-Flatten
-     ↓
-Dense
-     ↓
-Output Classes
+    ↓
+ResNet50
+    ↓
+Feature Extraction
+    ↓
+Classification
+    ↓
+34 Food Classes
 ```
 
-### 2. VGG16
+The model can be selected directly from the web interface along with CNN and VGG16.
 
-VGG16 is a pretrained convolutional neural network commonly used for image classification and transfer learning.
+---
 
-### 3. ResNet50
+# 🍔 Supported Food Classes
 
-ResNet50 uses residual connections to make training deeper networks easier.
+The current model contains **34 output classes**:
 
+```text
+1.  Baked Potato
+2.  Pakode
+3.  chapati
+4.  chicken_curry
+5.  Kulfi
+6.  Taco
+7.  burger
+8.  momos
+9.  Donut
+10. butter_naan
+11. Masala dosa
+12. Fries
+13. dal_makhani
+14. jalebi
+15. chole_bhature
+16. pav_bhaji
+17. pizza
+18. samosa
+19. kaathi_rolls
+20. fried_rice
+21. ice_cream
+22. dhokla
+23. Crispy Chicken
+24. Sandwich
+25. chai
+26. sushi
+27. idli
+28. apple_pie
+29. kadai_paneer
+30. Hot Dog
+31. cheesecake
+32. Taquito
+33. omelette
+34. paani_puri
+```
 
+These classes are defined in the Flask backend and correspond to the 34 output neurons in the supplied model weights.
 
-## 📁 Project Structure
+---
 
-Example project structure:
+# 🏗️ System Architecture
+
+```text
+                 ┌────────────────────┐
+                 │      User          │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │   Web Interface    │
+                 │     index.html     │
+                 └─────────┬──────────┘
+                           │
+                     Upload Image
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │    Flask API       │
+                 │      app.py        │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │ Image Preprocessing│
+                 └─────────┬──────────┘
+                           │
+                           ▼
+        ┌────────────────────────────────────┐
+        │          Classification            │
+        │                                    │
+        │   CNN     VGG16      ResNet50     │
+        └────────────────┬───────────────────┘
+                         │
+                         ▼
+                 ┌────────────────────┐
+                 │ Predicted Food     │
+                 │ + Confidence       │
+                 └─────────┬──────────┘
+                           │
+             ┌─────────────┴─────────────┐
+             ▼                           ▼
+     ┌───────────────┐           ┌───────────────┐
+     │ Redis / JSON  │           │ Model Metrics │
+     │ Nutrition     │           │ JSON Files    │
+     └───────┬───────┘           └───────┬───────┘
+             │                           │
+             └─────────────┬─────────────┘
+                           ▼
+                 ┌────────────────────┐
+                 │   results.html     │
+                 │                    │
+                 │ Food               │
+                 │ Confidence         │
+                 │ Nutrition          │
+                 │ Metrics            │
+                 └────────────────────┘
+```
+
+---
+
+# 📁 Project Files
+
+The main backend configuration uses the following files:
 
 ```text
 Food_Classification/
 │
-├── main.py
 ├── app.py
-├── metrics.py
+│
+├── cnn.weights.h5
+├── vgg16.weights.h5
+├── resnet.weights.h5
+│
+├── CNN_metrics.json
+├── VGG16_metrics.json
+├── ResNet_metrics.json
+│
+├── nutrition.json
 │
 ├── index.html
 ├── results.html
 │
-├── nutrition.json
+├── uploads/
 │
-├── models/
-│   ├── cnn_model.keras
-│   ├── vgg16_model.keras
-│   ├── resnet50_model.keras
-│
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── food_images/
-│
-├── templates/
-│   ├── index.html
-│   └── results.html
-│
-├── requirements.txt
-└── README.md
+└── static/
+    └── food_images/
 ```
 
-> Adjust the filenames and folders to match your actual project structure.
+The backend maps the three weight files and three corresponding metric files as follows.
 
 ---
 
-## ⚙️ Installation
+# 🛠️ Technologies Used
 
-### Step 1: Clone the Repository
+| Technology | Purpose                     |
+| ---------- | --------------------------- |
+| Python     | Application development     |
+| TensorFlow | Deep Learning               |
+| Keras      | Neural network models       |
+| Flask      | Web backend/API             |
+| Redis      | Nutrition and food data     |
+| NumPy      | Numerical processing        |
+| OpenCV     | Image processing            |
+| HTML       | Frontend                    |
+| CSS        | UI styling                  |
+| JavaScript | Frontend interaction        |
+| JSON       | Nutrition and model metrics |
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vamshivardhan9/FoodVision-AI.git
+git clone <your-repository-url>
 ```
 
-Move into the project:
+Then:
 
 ```bash
-cd FoodVision-AI
+cd Food_Classification
 ```
 
 ---
 
-### Step 2: Create a Virtual Environment
+## 2. Create Virtual Environment
 
-Windows:
+### Windows
 
 ```bash
 python -m venv .venv
@@ -201,192 +313,116 @@ Activate it:
 .venv\Scripts\activate
 ```
 
-You should see:
-
-```text
-(.venv)
-```
-
-in your terminal.
-
 ---
 
-### Step 3: Install Dependencies
+## 3. Install Dependencies
 
-Install the required packages:
+If `requirements.txt` is available:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If you don't have a `requirements.txt` file, common packages include:
+Otherwise, install the main packages:
 
 ```bash
-pip install flask tensorflow opencv-python numpy redis pillow
+pip install flask tensorflow numpy opencv-python pillow redis
 ```
 
 ---
 
-## 🔴 Redis Setup
+# 🔴 Redis Configuration
 
-Redis is used to store nutrition information and model metrics.
+The application connects to Redis on:
 
-The application connects to Redis using:
+```text
+Host: localhost
+Port: 6379
+Database: 0
+```
+
+The connection configuration in the project is:
 
 ```python
-import redis
-
-redis_client = redis.Redis(
+redis.Redis(
     host="localhost",
     port=6379,
-    db=0,
-    decode_responses=True
+    decode_responses=True,
+    db=0
 )
 ```
 
-### Check Redis Connection
-
-Run:
-
-```python
-redis_client.ping()
-```
-
-If Redis is working correctly:
-
-```text
-True
-```
-
-will be returned.
+The application calls `ping()` to check whether Redis is available.
 
 ---
 
-## 🥗 Nutrition Data
+# 🥗 Nutrition Data
 
-Nutrition information is maintained in:
-
-```text
-nutrition.json
-```
-
-Example:
-
-```json
-{
-    "pizza": {
-        "calories": 266,
-        "protein": 11,
-        "carbohydrates": 33,
-        "fat": 10
-    }
-}
-```
-
-The JSON data can be stored in Redis under a key such as:
+Nutrition information is loaded from Redis using the key:
 
 ```text
 nutrition
 ```
 
-Example:
+If Redis is unavailable, the application can fall back to the local nutrition JSON file.
 
-```python
-import json
-import redis
+Food names are normalized before performing the nutrition lookup. For example:
 
-redis_client = redis.Redis(
-    host="localhost",
-    port=6379,
-    db=0,
-    decode_responses=True
-)
-
-with open("nutrition.json", "r", encoding="utf-8") as file:
-    food_data = json.load(file)
-
-redis_client.set(
-    "nutrition",
-    json.dumps(food_data)
-)
-
-print("Food data stored successfully")
+```text
+Baked Potato → Baked_Potato
+Crispy Chicken → Crispy_Chicken
+Hot Dog → Hot_Dog
+Masala Dosa → masala_dosa
 ```
+
+This prevents differences in food-name formatting from breaking the nutrition lookup.
 
 ---
 
-## 🖼️ Image Processing
+# 📊 Model Metrics
 
-The uploaded image is processed before being passed to the model.
+The application loads model metrics from:
 
-Typical preprocessing includes:
-
-1. Read image
-2. Resize image
-3. Convert color format
-4. Normalize pixel values
-5. Add batch dimension
-
-Example:
-
-```python
-import cv2
-import numpy as np
-
-image = cv2.imread("image.jpg")
-
-image = cv2.resize(image, (224, 224))
-
-image = image.astype("float32") / 255.0
-
-image = np.expand_dims(image, axis=0)
+```text
+CNN_metrics.json
+VGG16_metrics.json
+ResNet_metrics.json
 ```
 
-The input size should match the model's expected input size.
+Metrics can be retrieved for a particular predicted food class.
+
+For example:
+
+```text
+Model: CNN
+Food Class: pizza
+        ↓
+CNN_metrics.json
+        ↓
+Pizza metrics
+```
+
+The backend also supports alternative class naming such as spaces and underscores.
 
 ---
 
-## 🤖 Loading a Keras Model
+# 🌐 Web Application
 
-A `.keras` model can be loaded using:
-
-```python
-from tensorflow.keras.models import load_model
-
-model = load_model("models/cnn_model.keras")
-```
-
-Prediction:
-
-```python
-prediction = model.predict(image)
-```
-
-The predicted class can then be obtained using the class mapping used during training.
-
----
-
-## 🌐 Running the Flask Application
-
-Start the Flask application:
+Start the application with:
 
 ```bash
 python app.py
 ```
 
-or, depending on your project:
-
-```bash
-python main.py
-```
-
-You should see something similar to:
+The Flask server runs on:
 
 ```text
-Running on http://127.0.0.1:5000
+http://127.0.0.1:5000
 ```
 
-Open the address in your browser:
+The application is configured to listen on all interfaces at port `5000` while running in debug mode.
+
+Open your browser and visit:
 
 ```text
 http://127.0.0.1:5000
@@ -394,90 +430,274 @@ http://127.0.0.1:5000
 
 ---
 
-## 🔄 Application Workflow
+# 🖼️ Using the Application
+
+## Step 1 — Upload Image
+
+Select a food image from your computer.
+
+Supported formats:
 
 ```text
-1. User opens website
-          ↓
-2. User uploads food image
-          ↓
-3. Flask receives image
-          ↓
-4. Image preprocessing
-          ↓
-5. Image sent to trained models
-          ↓
-6. Food class predicted
-          ↓
-7. Nutrition data retrieved from Redis
-          ↓
-8. Results displayed
+JPG
+JPEG
+PNG
+WebP
+```
+
+The backend allows a maximum request size of **10 MB**.
+
+---
+
+## Step 2 — Select Actual Food Class
+
+The UI provides an option to select the actual food class.
+
+This can be used to compare the actual class against the predicted class and retrieve corresponding metrics.
+
+---
+
+## Step 3 — Select Model
+
+Choose one:
+
+```text
+CNN
+VGG16
+ResNet50
+```
+
+The frontend provides buttons for all three models.
+
+---
+
+## Step 4 — Predict
+
+Click:
+
+```text
+Predict Food
+```
+
+The image is sent to the Flask `/predict` endpoint.
+
+The backend:
+
+```text
+Upload Image
+     ↓
+Validate Image
+     ↓
+Select Model
+     ↓
+Load Model
+     ↓
+Preprocess Image
+     ↓
+Run Prediction
+     ↓
+Find Predicted Class
+     ↓
+Calculate Confidence
+     ↓
+Get Nutrition
+     ↓
+Get Metrics
+     ↓
+Return Result
+```
+
+The prediction endpoint returns the predicted class, confidence, model, nutrition, metrics, food image, and uploaded image information.
+
+---
+
+# 🔌 API Endpoints
+
+## `GET /`
+
+Displays the main prediction page.
+
+```text
+GET /
 ```
 
 ---
 
-## 📊 Model Metrics
+## `GET /results`
 
-The project can maintain performance metrics for different models.
+Displays the results page.
+
+```text
+GET /results
+```
+
+---
+
+## `GET /health`
+
+Checks the application and Redis status.
+
+Example response:
+
+```json
+{
+    "status": "running",
+    "redis": true,
+    "number_of_classes": 34,
+    "models": [
+        "cnn",
+        "vgg16",
+        "resnet50"
+    ]
+}
+```
+
+The health endpoint reports Redis status, the number of classes, available food data, and supported models.
+
+---
+
+## `GET /food-classes`
+
+Returns the available food classes.
+
+Example:
+
+```json
+{
+    "success": true,
+    "count": 34,
+    "classes": []
+}
+```
+
+---
+
+## `GET /nutrition/<food_class>`
+
+Returns nutrition information for a food class.
 
 Example:
 
 ```text
-CNN
-Accuracy: XX%
-
-VGG16
-Accuracy: XX%
-
-ResNet50
-Accuracy: XX%
-
-
+GET /nutrition/pizza
 ```
 
-Metrics can be stored in Redis for later retrieval.
+Possible response:
 
-Example Redis keys:
-
-```text
-cnn_metrics
-vgg16_metrics
-resnet50_metrics
-
+```json
+{
+    "success": true,
+    "food": "pizza",
+    "nutrition": {}
+}
 ```
 
 ---
 
-## 🧪 Testing
+## `POST /predict`
 
-Test the application with different food images.
+Performs food classification.
 
-Check:
+Required:
 
-* Image upload
-* Image preprocessing
-* Model prediction
-* Predicted class
-* Nutrition lookup
-* Redis connection
-* Results page
-* Multiple model predictions
+```text
+image
+```
+
+Optional:
+
+```text
+model
+actual_class
+```
+
+Supported model values:
+
+```text
+cnn
+vgg16
+resnet50
+```
 
 ---
 
-## 🐛 Common Issues
+# 📤 Prediction Response
 
-### Redis Connection Error
+A successful prediction contains information such as:
 
-If you see:
-
-```text
-Connection refused
+```json
+{
+    "success": true,
+    "model": "cnn",
+    "predicted_class": "pizza",
+    "predicted_index": 16,
+    "confidence": 0.95,
+    "actual_class": "pizza",
+    "actual_metrics": {},
+    "predicted_metrics": {},
+    "nutrition": {},
+    "nutrition_redis_key": "pizza",
+    "food_image": "",
+    "uploaded_image": ""
+}
 ```
 
-make sure the Redis server is running.
+The exact nutrition and metrics values depend on the corresponding project data files and Redis contents.
 
-Check Redis with:
+---
+
+# 🔄 Complete Workflow
+
+```text
+User
+ │
+ ▼
+Open FoodVision AI
+ │
+ ▼
+Upload Food Image
+ │
+ ▼
+Select Actual Food Class
+ │
+ ▼
+Select CNN / VGG16 / ResNet50
+ │
+ ▼
+Click "Predict Food"
+ │
+ ▼
+Flask /predict
+ │
+ ▼
+Image Preprocessing
+ │
+ ▼
+Selected Deep Learning Model
+ │
+ ▼
+Prediction
+ │
+ ▼
+Predicted Food Class
+ │
+ ├──────────────► Confidence
+ │
+ ├──────────────► Model Metrics
+ │
+ ├──────────────► Nutrition Data
+ │
+ └──────────────► Food Image
+ │
+ ▼
+Results Page
+```
+
+---
+
+# 🧪 Testing
+
+Before testing predictions, verify Redis:
 
 ```bash
 redis-cli ping
@@ -489,134 +709,121 @@ Expected:
 PONG
 ```
 
----
-
-### Pillow Not Installed
-
-If you see:
-
-```text
-WARNING: Package(s) not found: Pillow
-```
-
-install it:
+Then start Flask:
 
 ```bash
-pip install Pillow
+python app.py
 ```
 
-Then update requirements:
-
-```bash
-pip freeze > requirements.txt
-```
-
----
-
-### Model File Not Found
-
-If you see:
+Open:
 
 ```text
-FileNotFoundError
+http://127.0.0.1:5000
 ```
 
-check that the `.keras` file exists and that the path is correct.
+Test with different food images and compare the predictions from:
 
-Example:
-
-```python
-model = load_model("models/cnn_model.keras")
+```text
+CNN
+VGG16
+ResNet50
 ```
 
 ---
 
-### Redis `HELLO` Error
+# ⚠️ Common Problems
 
-If Redis reports:
+## Redis Not Connected
+
+Check whether Redis is running:
+
+```bash
+redis-cli ping
+```
+
+Expected:
 
 ```text
-unknown command `HELLO`
+PONG
 ```
 
-your Redis server may be an older/incompatible Redis implementation.
-
-Check the server version:
-
-```bash
-redis-cli INFO server
-```
-
-or:
-
-```bash
-redis-server --version
-```
-
-The Python Redis client and Redis server need to be compatible.
+If Redis is not running, nutrition and class-related functionality may not work as intended.
 
 ---
 
-## 📦 Requirements
+## Model Weights Not Found
 
-Example `requirements.txt`:
+Make sure these files exist in the project directory:
 
 ```text
+cnn.weights.h5
+vgg16.weights.h5
+resnet.weights.h5
+```
+
+The application explicitly maps these filenames to the corresponding models.
+
+---
+
+## Incorrect Food Class
+
+The model can only predict the 34 classes defined by the application.
+
+An image outside these categories may still be forced into one of the available classes. **The prediction should therefore not be treated as proof that the image actually belongs to the predicted food category.**
+
+---
+
+# 🔐 Security Notes
+
+For production deployment:
+
+* Disable Flask debug mode
+* Validate uploaded file contents, not only extensions
+* Use unique filenames for uploads
+* Restrict Redis access
+* Do not expose Redis directly to the public internet
+* Store secrets in environment variables
+* Configure production logging
+* Use a production WSGI server
+
+---
+
+# 🚀 Future Improvements
+
+1. Add more food classes.
+2. Improve model accuracy.
+3. Add top-5 predictions.
+4. Add model comparison on the same image.
+5. Add prediction history.
+6. Add user authentication.
+7. Add calorie tracking.
+8. Add charts for nutrition information.
+9. Deploy the application to a cloud server.
+10. Add automated model evaluation.
+11. Add confidence thresholding so uncertain predictions can be rejected instead of blindly assigning a class.
+12. Add a proper database for users and prediction history.
+
+---
+
+# 📌 Project Summary
+
+**FoodVision AI** combines:
+
+```text
+Computer Vision
+       +
+Deep Learning
+       +
 Flask
-tensorflow
-numpy
-opencv-python
-Pillow
-redis
+       +
+Redis
+       +
+Nutrition Data
+       =
+Food Classification Web Application
 ```
 
-Generate the exact dependency list from your virtual environment with:
-
-```bash
-pip freeze > requirements.txt
-```
-
----
-
-## 🚀 Future Improvements
-
-* Improve classification accuracy
-* Add more food classes
-* Add confidence scores
-* Add top-5 predictions
-* Compare all models on one results page
-* Add user authentication
-* Add food history
-* Add calorie tracking
-* Deploy the application to the cloud
-* Add REST API support
-* Improve frontend UI
-* Add database support for user-specific results
-
----
-
-## 🔐 Important
-
-Do not upload sensitive information such as:
-
-```text
-.env
-API keys
-passwords
-private credentials
-large datasets
-```
-
-to GitHub.
-
-Use `.gitignore`:
-
-```text
-.venv/
-__pycache__/
-.env
-*.pyc
-```
+The system accepts a food image, uses one of three deep-learning models to classify it into one of 34 food categories, and then combines the prediction with nutrition and model-metric information before presenting the result through the web interface.
 
 ---
 
@@ -624,32 +831,6 @@ __pycache__/
 
 **Vamshi Vardhan Nagati**
 
-Food Classification System using Deep Learning, Flask, and Redis.
+### FoodVision AI
 
----
-
-## ⭐ Project Summary
-
-This project demonstrates how **Deep Learning + Computer Vision + Flask + Redis** can be combined to build a practical food recognition application.
-
-The system:
-
-```text
-Food Image
-    ↓
-Computer Vision
-    ↓
-Deep Learning
-    ↓
-Food Classification
-    ↓
-Redis
-    ↓
-Nutrition Information
-    ↓
-Web Results
-```
-
----
-
-
+> Deep Learning Food Classification System
