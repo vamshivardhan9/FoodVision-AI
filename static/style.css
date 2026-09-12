@@ -1,0 +1,274 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    min-height: 100vh;
+}
+
+
+/* ================= LEFT ================= */
+
+.left-panel {
+    padding: 15px;
+    background: #eef1f4;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    margin-bottom: 15px;
+}
+
+
+/* Profile */
+
+.profile {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.profile img {
+    width: 130px;
+    height: 130px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    display: block;
+
+    margin: auto;
+}
+
+.profile h3 {
+    margin-top: 10px;
+}
+
+.profile p {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* Food images */
+
+.card > img {
+    width: 100%;
+    max-height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+}
+
+
+/* Nutrition */
+
+.nutrition {
+    margin-top: 10px;
+}
+
+.nutrition p {
+    margin: 6px 0;
+}
+
+
+/* ================= MIDDLE ================= */
+
+.middle-panel {
+    padding: 30px;
+
+    text-align: center;
+
+    background: white;
+}
+
+.middle-panel h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.middle-panel h2 {
+    margin-bottom: 25px;
+}
+
+
+.prediction-box {
+    width: 90%;
+    height: 400px;
+
+    margin: auto;
+
+    border: 2px dashed #aaa;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.prediction-box img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/* Models */
+
+.models {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 25px;
+}
+
+.model-btn {
+    padding: 12px 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ddd;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.model-btn:hover {
+    background: #bbb;
+}
+
+.model-btn.active {
+    background: #222;
+    color: white;
+}
+
+
+/* Predict */
+
+.predict-btn {
+    margin-top: 25px;
+
+    padding: 14px 50px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #e63946;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.predict-btn:hover {
+    background: #c1121f;
+}
+
+
+/* Result */
+
+.result {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    background: #f4f4f4;
+
+    border-radius: 10px;
+}
+
+#predictionResult {
+    color: #e63946;
+}
+
+
+/* ================= RIGHT ================= */
+
+.right-panel {
+    padding: 15px;
+
+    background: #eef1f4;
+
+    max-height: 100vh;
+
+    overflow-y: auto;
+}
+
+#classesList {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 5px;
+}
+
+.class-item {
+    padding: 8px;
+
+    background: #f1f1f1;
+
+    border-radius: 5px;
+
+    font-size: 14px;
+}
+
+
+/* Reports */
+
+.report-item {
+    padding: 8px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .middle-panel {
+        order: -1;
+    }
+
+}

@@ -1,0 +1,206 @@
+{
+  "Baked_Potato": {
+    "Calories": 161,
+    "Carbs": 39,
+    "Fat": 0.2,
+    "Protein": 4
+  },
+  "Crispy_Chicken": {
+    "Calories": 489,
+    "Carbs": 4,
+    "Fat": 38,
+    "Protein": 32
+  },
+  "Donut": {
+    "Calories": 404,
+    "Carbs": 61.4,
+    "Fat": 17.5,
+    "Protein": 3.51
+  },
+  "Fries": {
+    "Calories": 179,
+    "Carbs": 27.4,
+    "Fat": 7.14,
+    "Protein": 2.38
+  },
+  "Hot_Dog": {
+    "Calories": 290,
+    "Carbs": 3.5,
+    "Fat": 24,
+    "Protein": 12
+  },
+  "Sandwich": {
+    "Calories": 592,
+    "Carbs": 35,
+    "Fat": 29,
+    "Protein": 31
+  },
+  "Taco": {
+    "Calories": 246,
+    "Carbs": 15.62,
+    "Fat": 13.56,
+    "Protein": 15.31
+  },
+  "Taquito": {
+    "Calories": 245,
+    "Carbs": 31.9,
+    "Fat": 9.57,
+    "Protein": 8.51
+  },
+  "apple_pie": {
+    "Calories": 479,
+    "Carbs": 90,
+    "Fat": 10,
+    "Protein": 8
+  },
+  "burger": {
+    "Calories": 452,
+    "Carbs": 24,
+    "Fat": 29,
+    "Protein": 23
+  },
+  "butter_naan": {
+    "Calories": 260,
+    "Carbs": 38,
+    "Fat": 9,
+    "Protein": 7
+  },
+  "chai": {
+    "Calories": 330,
+    "Carbs": 62,
+    "Fat": 8,
+    "Protein": 8.5
+  },
+  "chapati": {
+    "Calories": 120,
+    "Carbs": 20,
+    "Fat": 3,
+    "Protein": 3
+  },
+  "cheesecake": {
+    "Calories": 241,
+    "Carbs": 19,
+    "Fat": 17,
+    "Protein": 3
+  },
+  "chicken_curry": {
+    "Calories": 398,
+    "Carbs": 38,
+    "Fat": 16,
+    "Protein": 28
+  },
+  "chole_bhature": {
+    "Calories": 590,
+    "Carbs": 56,
+    "Fat": 35,
+    "Protein": 13
+  },
+  "dal_makhani": {
+    "Calories": 288,
+    "Carbs": 52.5,
+    "Fat": 9.5,
+    "Protein": 10.5
+  },
+  "dhokla": {
+    "Calories": 130,
+    "Carbs": 18,
+    "Fat": 3,
+    "Protein": 7
+  },
+  "fried_rice": {
+    "Calories": 390,
+    "Carbs": 55,
+    "Fat": 12,
+    "Protein": 16
+  },
+  "ice_cream": {
+    "Calories": 273,
+    "Carbs": 31,
+    "Fat": 15,
+    "Protein": 5
+  },
+  "idli": {
+    "Calories": 58,
+    "Carbs": 12,
+    "Fat": 0.1,
+    "Protein": 2.5
+  },
+  "jalebi": {
+    "Calories": 350,
+    "Carbs": 64,
+    "Fat": 3,
+    "Protein": 3
+  },
+  "kaathi_rolls": {
+    "Calories": 245,
+    "Carbs": 28,
+    "Fat": 9.5,
+    "Protein": 14
+  },
+  "kadai_paneer": {
+    "Calories": 270,
+    "Carbs": 13,
+    "Fat": 22,
+    "Protein": 6
+  },
+  "kulfi": {
+    "Calories": 224,
+    "Carbs": 23,
+    "Fat": 13,
+    "Protein": 4
+  },
+  "masala_dosa": {
+    "Calories": 210,
+    "Carbs": 24,
+    "Fat": 11,
+    "Protein": 3
+  },
+  "momos": {
+    "Calories": 220,
+    "Carbs": 24,
+    "Fat": 10,
+    "Protein": 9
+  },
+  "omelette": {
+    "Calories": 404,
+    "Carbs": 8,
+    "Fat": 31,
+    "Protein": 23
+  },
+  "paani_puri": {
+    "Calories": 110,
+    "Carbs": 18,
+    "Fat": 2.5,
+    "Protein": 3.5
+  },
+  "pakode": {
+    "Calories": 190,
+    "Carbs": 10,
+    "Fat": 14,
+    "Protein": 5
+  },
+  "pav_bhaji": {
+    "Calories": 160,
+    "Carbs": 11,
+    "Fat": 12,
+    "Protein": 2
+  },
+  "pizza": {
+    "Calories": 250,
+    "Carbs": 32,
+    "Fat": 9,
+    "Protein": 10
+  },
+  "samosa": {
+    "Calories": 220,
+    "Carbs": 30,
+    "Fat": 9,
+    "Protein": 5
+  },
+  "sushi": {
+    "Calories": 307,
+    "Carbs": 50,
+    "Fat": 9,
+    "Protein": 9
+  }
+}
