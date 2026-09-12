@@ -176,13 +176,13 @@ Food_Classification/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/Food_Classification.git
+git clone https://github.com/vamshivardhan9/FoodVision-AI.git
 ```
 
 Move into the project:
 
 ```bash
-cd Food_Classification
+cd FoodVision-AI
 ```
 
 ---
