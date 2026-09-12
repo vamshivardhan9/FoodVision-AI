@@ -40,7 +40,7 @@ FoodVision AI currently supports three models:
 
 | Model    | Input Size | Output Classes |
 | -------- | ---------: | -------------: |
-| CNN      |  240 × 240 |             34 |
+| CNN      |  256 × 256 |             34 |
 | VGG16    |  256 × 256 |             34 |
 | ResNet50 |  256 × 256 |             34 |
 
@@ -54,7 +54,7 @@ The custom CNN contains convolution, max-pooling, flattening, and dense layers.
 
 ```text
 Input
-240 × 240 × 3
+256 × 256 × 3
       ↓
 Conv2D – 12 filters
       ↓
