@@ -432,8 +432,7 @@ Accuracy: XX%
 ResNet50
 Accuracy: XX%
 
-MobileNet
-Accuracy: XX%
+
 ```
 
 Metrics can be stored in Redis for later retrieval.
@@ -444,7 +443,7 @@ Example Redis keys:
 cnn_metrics
 vgg16_metrics
 resnet50_metrics
-mobilenet_metrics
+
 ```
 
 ---
